@@ -72,6 +72,7 @@ public class BallMovement : MonoBehaviour
         if (other.gameObject.tag == "fogPlane")
         {
             isDead = true;
+            this.GetComponent<Restart>().Die();
         }
     }
 }
