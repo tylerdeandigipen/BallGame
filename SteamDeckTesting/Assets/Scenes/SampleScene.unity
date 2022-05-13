@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 1, g: 0.79607844, b: 0.99215686, a: 1}
+  m_FogColor: {r: 1, g: 0.6745283, b: 0.98748183, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.013
   m_LinearFogStart: 0
@@ -168,7 +168,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36822286}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e266d178cc24a5a4c9f661d15708f886, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -232,7 +232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36822286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 45.39, z: -138.58}
+  m_LocalPosition: {x: 0, y: 46.57, z: -132.6}
   m_LocalScale: {x: 3.13, y: 3.13, z: 3.13}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -252,14 +252,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6deef8c7d73f1d419391744e20a3cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementStrength: 2.25
-  maxSpeed: 10
-  jumpStrength: 400
-  groundCheckDistance: 1.6
+  currentVelocity: {x: 0, y: 0, z: 0}
+  movementStrength: 3
+  maxMovementSpeed: 10
+  maxVelocity: 12
+  jumpStrength: 600
+  groundCheckDistance: 1.7
   groundMask:
     serializedVersion: 2
     m_Bits: 8
   isDead: 0
+  movementDir: {x: 0, y: 0, z: 0}
 --- !u!114 &36822293
 MonoBehaviour:
   m_ObjectHideFlags: 0
