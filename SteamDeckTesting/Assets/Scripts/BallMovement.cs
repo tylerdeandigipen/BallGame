@@ -6,9 +6,13 @@ public class BallMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField]
+    Vector3 currentVelocity;
+    [SerializeField]
     float movementStrength = 1;
     [SerializeField]
-    float maxSpeed = 10;
+    float maxMovementSpeed = 10;
+    [SerializeField]
+    float maxVelocity = 10;
 
     [Header("Jump Settings")]
     [SerializeField]
@@ -20,6 +24,7 @@ public class BallMovement : MonoBehaviour
 
     [HideInInspector]
     public bool isDead;
+    [SerializeField]
     Vector3 movementDir;
     Rigidbody rb;
     bool isJumping;
@@ -56,16 +61,16 @@ public class BallMovement : MonoBehaviour
             isJumping = false;
         }
 
-        //Check if over max speed then set make velocity at max speed
-        if (rb.velocity.x > maxSpeed)
-            rb.velocity = new Vector3(maxSpeed, rb.velocity.y, rb.velocity.z);
-        else if (rb.velocity.x < -maxSpeed)
-            rb.velocity = new Vector3(-maxSpeed, rb.velocity.y, rb.velocity.z);
+        Vector3 hvel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        if (hvel.magnitude > maxVelocity)
+        {
+            hvel = hvel.normalized * maxVelocity;
+            rb.velocity = new Vector3(hvel.x, rb.velocity.y, hvel.z);
+        }
 
-        if (rb.velocity.z > maxSpeed)
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, maxSpeed);
-        else if (rb.velocity.z < -maxSpeed)
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -maxSpeed);
+        
+        currentVelocity = rb.velocity;
+        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -76,3 +81,30 @@ public class BallMovement : MonoBehaviour
         }
     }
 }
+
+
+/*
+//Check if over max speed then set make velocity at max speed
+if (rb.velocity.x > maxVelocity)
+    rb.velocity = new Vector3(maxVelocity, rb.velocity.y, rb.velocity.z);
+else if (rb.velocity.x < -maxVelocity)
+    rb.velocity = new Vector3(-maxVelocity, rb.velocity.y, rb.velocity.z);
+if (rb.velocity.z > maxVelocity)
+{
+    Debug.Log("gaeming");
+    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, maxVelocity);
+}
+else if (rb.velocity.z < -maxVelocity)
+    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -maxVelocity);
+
+//check if over max movespeed if not then addforce
+if (rb.velocity.x < maxMovementSpeed)
+    rb.AddForce(new Vector3(movementDir.x * movementStrength, 0, 0));
+else if (rb.velocity.x > -maxMovementSpeed)
+    rb.AddForce(new Vector3(-movementDir.x * movementStrength, 0, 0));
+
+if (rb.velocity.z < maxMovementSpeed)
+    rb.AddForce(new Vector3(0, 0, movementDir.z * movementStrength));
+else if (rb.velocity.z > -maxMovementSpeed)
+    rb.AddForce(new Vector3(0, 0, -movementDir.z * movementStrength));
+*/
