@@ -14,10 +14,12 @@ public class CameraFollow : MonoBehaviour
     GameObject player;
 
 
+    Quaternion startingCamRot;
     BallMovement playerMovement;
     // Start is called before the first frame update
     void Start()
     {
+        startingCamRot = transform.rotation;        
         playerMovement = player.GetComponent<BallMovement>();
     }
 
@@ -25,10 +27,21 @@ public class CameraFollow : MonoBehaviour
     void FixedUpdate()
     {
         if (!playerMovement.isDead)
-        {
-            Vector3 desiredPosition = new Vector3(player.transform.position.x, player.transform.position.y + yOffset, player.transform.position.z + zOffset);
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = smoothedPosition;
+        {   
+            if (playerMovement.startingCam)
+            {
+                Vector3 desiredPosition = new Vector3(player.transform.position.x, player.transform.position.y + yOffset, player.transform.position.z - (zOffset * 2f));
+                Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+                transform.LookAt(player.transform.position);
+                transform.position = smoothedPosition;
+            }
+            else
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, startingCamRot, smoothSpeed);
+                Vector3 desiredPosition = new Vector3(player.transform.position.x, player.transform.position.y + yOffset, player.transform.position.z + zOffset);
+                Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+                transform.position = smoothedPosition;
+            }
         }
     }
 }

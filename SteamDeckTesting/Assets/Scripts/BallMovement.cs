@@ -24,6 +24,8 @@ public class BallMovement : MonoBehaviour
 
     [HideInInspector]
     public bool isDead;
+    [HideInInspector]
+    public bool startingCam;
     [SerializeField]
     Vector3 movementDir;
     Rigidbody rb;
@@ -32,6 +34,7 @@ public class BallMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startingCam = true;
         rb = this.GetComponent<Rigidbody>();   
     }
 
@@ -45,7 +48,7 @@ public class BallMovement : MonoBehaviour
     void GetInput()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundMask);
-        movementDir = new Vector3 (Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        movementDir = new Vector3 (Input.GetAxisRaw("Horizontal"), 0, Mathf.Clamp(Input.GetAxisRaw("Vertical"), 0, 1));
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             isJumping = true;
@@ -78,6 +81,10 @@ public class BallMovement : MonoBehaviour
         {
             isDead = true;
             this.GetComponent<Restart>().Die();
+        }
+        if (other.gameObject.tag == "levelStart")
+        {
+            startingCam = false;    
         }
     }
 }

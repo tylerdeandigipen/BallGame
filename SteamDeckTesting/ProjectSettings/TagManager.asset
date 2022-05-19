@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - fogPlane
+  - levelStart
   layers:
   - Default
   - TransparentFX
