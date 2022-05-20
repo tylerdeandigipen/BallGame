@@ -26,14 +26,18 @@ public class BallMovement : MonoBehaviour
     public bool isDead;
     [HideInInspector]
     public bool startingCam;
+    [HideInInspector]
+    bool wonLevel = false;
     [SerializeField]
     Vector3 movementDir;
     Rigidbody rb;
     bool isJumping;
     bool isGrounded;
+    ScoreManager scoreCounter;
     // Start is called before the first frame update
     void Start()
     {
+        scoreCounter = FindObjectOfType<ScoreManager>();
         startingCam = true;
         rb = this.GetComponent<Rigidbody>();   
     }
@@ -41,8 +45,11 @@ public class BallMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetInput();
-        ApplyForces();
+        if (!wonLevel && !isDead)
+        {
+            GetInput();
+            ApplyForces();
+        }
     }
 
     void GetInput()
@@ -77,14 +84,27 @@ public class BallMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "fogPlane")
+        if (!wonLevel && !isDead)
         {
-            isDead = true;
-            this.GetComponent<Restart>().Die();
-        }
-        if (other.gameObject.tag == "levelStart")
-        {
-            startingCam = false;    
+            if (other.gameObject.tag == "fogPlane")
+            {
+                isDead = true;
+                this.GetComponent<Restart>().Die();
+            }
+            if (other.gameObject.tag == "levelStart")
+            {
+                startingCam = false;
+            }
+            if (other.gameObject.tag == "collectable")
+            {
+                scoreCounter.collectablesGot += 1;
+                Destroy(other.gameObject);
+            }
+            if (other.gameObject.tag == "finishZone")
+            {
+                isDead = true;
+                wonLevel = true;
+            }
         }
     }
 }

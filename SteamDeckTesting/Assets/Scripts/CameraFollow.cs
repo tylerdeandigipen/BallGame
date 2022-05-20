@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-
+    float timer;
     Quaternion startingCamRot;
     BallMovement playerMovement;
     // Start is called before the first frame update
@@ -37,6 +37,7 @@ public class CameraFollow : MonoBehaviour
             }
             else
             {
+                timer += Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, startingCamRot, smoothSpeed);
                 Vector3 desiredPosition = new Vector3(player.transform.position.x, player.transform.position.y + yOffset, player.transform.position.z + zOffset);
                 Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);

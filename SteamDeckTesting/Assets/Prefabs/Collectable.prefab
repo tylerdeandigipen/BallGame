@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 5238768906095500709}
   m_Layer: 0
   m_Name: Collectable
-  m_TagString: Untagged
+  m_TagString: collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

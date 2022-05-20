@@ -12,6 +12,7 @@ public class Pickup : MonoBehaviour
     float RotationSpeed = 30;
     float startPos;
     float time;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +26,5 @@ public class Pickup : MonoBehaviour
         this.transform.position = new Vector3(this.transform.position.x, startPos + (Mathf.Sin(time * BobSpeed) * BobStrength), this.transform.position.z);
         transform.Rotate(0, 1f * Time.deltaTime * RotationSpeed, 0, Space.Self);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "player")
-        { 
-            //incriment some score counter here
 
-        }
-    }
 }
