@@ -6,6 +6,8 @@ TagManager:
   tags:
   - fogPlane
   - levelStart
+  - collectable
+  - finishZone
   layers:
   - Default
   - TransparentFX

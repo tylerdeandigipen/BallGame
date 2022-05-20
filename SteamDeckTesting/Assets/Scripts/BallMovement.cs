@@ -98,7 +98,7 @@ public class BallMovement : MonoBehaviour
             if (other.gameObject.tag == "collectable")
             {
                 scoreCounter.collectablesGot += 1;
-                Destroy(other.gameObject);
+                other.gameObject.GetComponent<Pickup>().collect();
             }
             if (other.gameObject.tag == "finishZone")
             {

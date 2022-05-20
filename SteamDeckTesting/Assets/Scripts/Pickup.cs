@@ -10,6 +10,8 @@ public class Pickup : MonoBehaviour
     float BobStrength = 2;
     [SerializeField]
     float RotationSpeed = 30;
+    [SerializeField]
+    GameObject destroyParticles;
     float startPos;
     float time;
 
@@ -27,4 +29,10 @@ public class Pickup : MonoBehaviour
         transform.Rotate(0, 1f * Time.deltaTime * RotationSpeed, 0, Space.Self);
     }
 
+    public void collect()
+    {
+        GameObject particles = Instantiate(destroyParticles);
+        particles.transform.position = this.transform.position;
+        this.gameObject.SetActive(false);
+    }
 }

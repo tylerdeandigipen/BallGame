@@ -197,3 +197,4 @@ MonoBehaviour:
   BobSpeed: 2
   BobStrength: 0.5
   RotationSpeed: 30
+  destroyParticles: {fileID: 722096301170203459, guid: 6d657a375fc9e6e468dcadead853a637, type: 3}
